@@ -14,6 +14,6 @@ SOURCE3 = r"C:\Users\Gabriela\Documents\Projekt_Pytesting\calibrated" # added
 # MAIN
 if __name__ == "__main__":
     #r.rename_existing_files2(SOURCE2, TARGET2, "jpeg")
-    r.copy_and_rename_files3(SOURCE3, TARGET3, "jpg")
+    r.copy_and_rename_files(SOURCE, TARGET, "jpeg")
 
 

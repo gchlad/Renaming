@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 
 #1
-def copy_and_rename_files (dire, extension):
+def copy_and_rename_files (dire, targ, extension):
     """
           Renaming to "orchard_date_time_position".
           Copy file to new location with new name.
@@ -14,6 +14,8 @@ def copy_and_rename_files (dire, extension):
     """
     glob_path = "{}/**/*.{}".format(dire, extension)
     files = glob.glob(glob_path, recursive=True)
+    img_copied=0
+    img_error=0
 
     for file in files:         # Naming of file
         old_name = Path(file).name
@@ -31,14 +33,28 @@ def copy_and_rename_files (dire, extension):
             rl = "L"
         position_of = (col + "-" + line + "-" + rl).replace(".jpeg", "")
 
-        dest = os.path.join(dire, "{}_{}_{}_{}_{}.{}".format(orchard, date, time, position_of, type_of_tree,extension))
+        dest = os.path.join(targ, "{}_{}_{}_{}_{}.{}".format(orchard, date, time, position_of, type_of_tree,extension))
         print(dest)
+
         # copying file to TARGET destination with new name
-        #shutil.copy2(file, dest)
+        try:
+            #shutil.copy2(file, dest)
+            img_copied = img_copied + 1
+
+        except shutil.SameFileError:
+            print("Source and destination represents the same file.")
+            img_error=img_error+1
+        except:
+            print("Error occurred while copying file.")
+            img_error = img_error + 1
+
+    print(img_copied, "files copied successfully.")
+    print(img_error, "error/s occurred")
+
 #2
-def copy_and_rename_files2(dire, extension):
+def copy_and_rename_files2(dire, targ, extension):
     """
-        Renaming to "orchard_date_time_position".
+        Renaming to "orchard_date_time_position_type".
         Copy file to new location with new name.
         From old_naming convention --> b is new R, nothing is new L
     """
@@ -75,7 +91,7 @@ def copy_and_rename_files2(dire, extension):
         position_of = row + "-" + number_of_tree + "-" + rl
 
         # copying file to TARGET
-        dest = os.path.join(dire, "{}_{}_{}_{}_{}.{}".format(sad, date, time, position_of, type_of_tree, extension))
+        dest = os.path.join(targ, "{}_{}_{}_{}_{}.{}".format(sad, date, time, position_of, type_of_tree, extension))
         print(dest)
         #shutil.copy2(file, dest)
 
