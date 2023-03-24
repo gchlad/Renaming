@@ -79,41 +79,33 @@ def copy_and_rename_files2(dire, extension):
         print(dest)
         #shutil.copy2(file, dest)
 
-    # 3a
-    def rename_existing_files3(dire, extension):
-        glob_path = "{}/**/*.{}".format(dire, extension)
-        files = glob.glob(glob_path, recursive=True)
-        for file in files:
-            """
-            Load place, date, time, pos. of tree to variable - place and date from parent.parent files name (or written), 
-                time and location of tree from parent files name.
-            Save file to new location with new name.
-            """
+# 3a
+def copy_and_rename_files3(dire,targ, extension):
+    glob_path = "{}/**/*.{}".format(dire, extension)
+    files = glob.glob(glob_path, recursive=True)
 
-            # Naming of file
-            f1 = Path(file)
-            sad_date_time_type_position = f1.name
-            # x = re.search("[a-z]+_[0-9]+_[a-zA-Z]+-[a-zA-Z0-9]+", sad_date_time_type_position)
-            # if x is not None:
-            str_array = re.split("_", sad_date_time_type_position)
-            str_array[-1] = str_array[-1].replace(".jpg", "")
+    for file in files:  # Naming of file
+        old_name = Path(file).name
 
-            sad = str_array[1]
-            date_of = str_array[2]
-            time_of = str_array[3]
-            type_of = str_array[4]
-            position_of_old = str_array[5]
+        # x = re.search("[a-z]+_[0-9]+_[a-zA-Z]+-[a-zA-Z0-9]+", old_name)
+        # if x is not None:
+        old_name_list = re.split("_", old_name)
+        old_name_list[-1] = old_name_list[-1].replace(".jpg", "")
 
-            x = re.search("[A-Z]", str_array[5])
-            row = str_array[5][:x.start()]
-            numberoftree = str_array[5][x.end():]
-            rl = str_array[5][x.start():x.end()]
-            position_of = row + "-" + numberoftree + "-" + rl
+        sad = old_name_list[1]
+        date = old_name_list[2]
+        time = old_name_list[3]
+        type_of_tree = old_name_list[4]
 
-            dest = os.path.join(TARGET,
-                                "{}_{}_{}_{}_{}.{}".format(sad, date_of, time_of, position_of, type_of, extension))
-            print(dest)
-            # shutil.copy2(file, dest)
+        x = re.search("[A-Z]", old_name_list[5]) # using regex for position renaming
+        row = old_name_list[5][:x.start()]
+        number_of_tree = old_name_list[5][x.end():]
+        rl = old_name_list[5][x.start():x.end()]
+        position_of = row + "-" + number_of_tree + "-" + rl
+
+        dest = os.path.join(targ,"{}_{}_{}_{}_{}.{}".format(sad, date, time, position_of, type_of_tree, extension))
+        print(dest)
+        # shutil.copy2(file, dest)
 
     # 3b ten je asi spatne
     def rename_existing_files4(dire, extension):
