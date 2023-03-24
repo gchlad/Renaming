@@ -62,6 +62,8 @@ def copy_and_rename_files2(dire, targ, extension):
     """
     glob_path = "{}/**/*.{}".format(dire, extension)
     files = glob.glob(glob_path, recursive=True)
+    img_copied = 0
+    img_error = 0
 
     for file in files:  # Naming of file
         old_name = Path(file).name
@@ -115,6 +117,8 @@ def copy_and_rename_files2(dire, targ, extension):
 def copy_and_rename_files3(dire, targ, extension):
     glob_path = "{}/**/*.{}".format(dire, extension)
     files = glob.glob(glob_path, recursive=True)
+    img_copied = 0
+    img_error = 0
 
     for file in files:  # Naming of file
         old_name = Path(file).name
