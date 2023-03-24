@@ -5,8 +5,9 @@ import shutil
 from pathlib import Path
 import re
 
-#1
-def copy_and_rename_files (dire, targ, extension):
+
+# 1
+def copy_and_rename_files(dire, targ, extension):
     """
           Renaming to "orchard_date_time_position".
           Copy file to new location with new name.
@@ -14,10 +15,10 @@ def copy_and_rename_files (dire, targ, extension):
     """
     glob_path = "{}/**/*.{}".format(dire, extension)
     files = glob.glob(glob_path, recursive=True)
-    img_copied=0
-    img_error=0
+    img_copied = 0
+    img_error = 0
 
-    for file in files:         # Naming of file
+    for file in files:  # Naming of file
         old_name = Path(file).name
 
         orchard = old_name.split("_")[0]
@@ -33,17 +34,17 @@ def copy_and_rename_files (dire, targ, extension):
             rl = "L"
         position_of = (col + "-" + line + "-" + rl).replace(".jpeg", "")
 
-        dest = os.path.join(targ, "{}_{}_{}_{}_{}.{}".format(orchard, date, time, position_of, type_of_tree,extension))
+        dest = os.path.join(targ, "{}_{}_{}_{}_{}.{}".format(orchard, date, time, position_of, type_of_tree, extension))
         print(dest)
 
         # copying file to TARGET destination with new name
         try:
-            #shutil.copy2(file, dest)
+            # shutil.copy2(file, dest)
             img_copied = img_copied + 1
 
         except shutil.SameFileError:
             print("Source and destination represents the same file.")
-            img_error=img_error+1
+            img_error = img_error + 1
         except:
             print("Error occurred while copying file.")
             img_error = img_error + 1
@@ -51,7 +52,8 @@ def copy_and_rename_files (dire, targ, extension):
     print(img_copied, "files copied successfully.")
     print(img_error, "error/s occurred")
 
-#2
+
+# 2
 def copy_and_rename_files2(dire, targ, extension):
     """
         Renaming to "orchard_date_time_position_type".
@@ -93,10 +95,24 @@ def copy_and_rename_files2(dire, targ, extension):
         # copying file to TARGET
         dest = os.path.join(targ, "{}_{}_{}_{}_{}.{}".format(sad, date, time, position_of, type_of_tree, extension))
         print(dest)
-        #shutil.copy2(file, dest)
+
+        try:
+            shutil.copy2(file, dest)
+            img_copied = img_copied + 1
+
+        except shutil.SameFileError:
+            print("Source and destination represents the same file.")
+            img_error = img_error + 1
+        except:
+            print("Error occurred while copying file.")
+            img_error = img_error + 1
+
+        print(img_copied, "files copied successfully.")
+        print(img_error, "error/s occurred")
+
 
 # 3 --> after calibration images with added "img"
-def copy_and_rename_files3(dire,targ, extension):
+def copy_and_rename_files3(dire, targ, extension):
     glob_path = "{}/**/*.{}".format(dire, extension)
     files = glob.glob(glob_path, recursive=True)
 
@@ -113,12 +129,25 @@ def copy_and_rename_files3(dire,targ, extension):
         time = old_name_list[3]
         type_of_tree = old_name_list[4]
 
-        x = re.search("[A-Z]", old_name_list[5]) # using regex for position renaming
+        x = re.search("[A-Z]", old_name_list[5])  # using regex for position renaming
         row = old_name_list[5][:x.start()]
         number_of_tree = old_name_list[5][x.end():]
         rl = old_name_list[5][x.start():x.end()]
         position_of = row + "-" + number_of_tree + "-" + rl
 
-        dest = os.path.join(targ,"{}_{}_{}_{}_{}.{}".format(sad, date, time, position_of, type_of_tree, extension))
+        dest = os.path.join(targ, "{}_{}_{}_{}_{}.{}".format(sad, date, time, position_of, type_of_tree, extension))
         print(dest)
-        # shutil.copy2(file, dest)
+
+        try:
+            shutil.copy2(file, dest)
+            img_copied = img_copied + 1
+
+        except shutil.SameFileError:
+            print("Source and destination represents the same file.")
+            img_error = img_error + 1
+        except:
+            print("Error occurred while copying file.")
+            img_error = img_error + 1
+
+        print(img_copied, "files copied successfully.")
+        print(img_error, "error/s occurred")
