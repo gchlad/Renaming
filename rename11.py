@@ -158,8 +158,9 @@ def rename_existing_files4 (dire, extension):
         #shutil.copy2(file, dest)
 
 #MAIN
-
+"""
 if __name__ == "__main__":
     #rename_existing_files(SOURCE, "jpeg")
     #rename_existing_files2(SOURCE2, "jpeg")
     rename_existing_files3(SOURCE3, "jpg")
+"""
