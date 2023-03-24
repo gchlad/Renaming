@@ -79,7 +79,7 @@ def copy_and_rename_files2(dire, extension):
         print(dest)
         #shutil.copy2(file, dest)
 
-# 3a
+# 3 --> after calibration images with added "img"
 def copy_and_rename_files3(dire,targ, extension):
     glob_path = "{}/**/*.{}".format(dire, extension)
     files = glob.glob(glob_path, recursive=True)
@@ -106,39 +106,3 @@ def copy_and_rename_files3(dire,targ, extension):
         dest = os.path.join(targ,"{}_{}_{}_{}_{}.{}".format(sad, date, time, position_of, type_of_tree, extension))
         print(dest)
         # shutil.copy2(file, dest)
-
-    # 3b ten je asi spatne
-    def rename_existing_files4(dire, extension):
-        glob_path = "{}/**/*.{}".format(dire, extension)
-        files = glob.glob(glob_path, recursive=True)
-        for file in files:
-            """
-            Load place, date, time, pos. of tree to variable - place and date from parent.parent files name (or written), 
-                time and location of tree from parent files name.
-            Save file to new location with new name.
-            """
-            # Naming of file
-            f1 = Path(file)
-            sad_date_time_type_position = f1.name
-            sad_date_time_type_position = sad_date_time_type_position.split("_")[0]
-
-            str_array = re.split("_", sad_date_time_type_position)
-            str_array[-1] = str_array[-1].replace(".jpg", "")
-
-            sad = str_array[1]
-            date_of = str_array[2]
-            time_of = str_array[3]
-            type_of = str_array[4]
-            position_of_old = str_array[5]
-
-            x = re.search("[A-Z]", str_array[5])
-            row = str_array[5][:x.start()]
-            numberoftree = str_array[5][x.end():]
-            rl = str_array[5][x.start():x.end()]
-            position_of = row + "-" + numberoftree + "-" + rl
-
-            # copying file to TARGET
-            dest = os.path.join(TARGET,
-                                "{}_{}_{}_{}_{}.{}".format(sad, date_of, time_of, position_of, type_of, extension))
-            print(dest)
-            # shutil.copy2(file, dest)
