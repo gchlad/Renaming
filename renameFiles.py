@@ -20,8 +20,8 @@ def copy_and_rename_files (dire, extension):
 
         orchard = old_name.split("_")[0]
         date = (old_name.split("_")[1])[1:]
-        time_of = old_name.split("_")[2]
-        type_of = old_name.split("_")[3].split("-")[0]
+        time = old_name.split("_")[2]
+        type_of_tree = old_name.split("_")[3].split("-")[0]
         col = old_name.split("_")[3].split("-")[1]
         line = old_name.split("_")[3].split("-")[2]
         if line.find("b") != -1:
@@ -31,7 +31,7 @@ def copy_and_rename_files (dire, extension):
             rl = "L"
         position_of = (col + "-" + line + "-" + rl).replace(".jpeg", "")
 
-        dest = os.path.join(dire, "{}_{}_{}_{}_{}.{}".format(orchard, date, time_of, position_of, type_of,extension))
+        dest = os.path.join(dire, "{}_{}_{}_{}_{}.{}".format(orchard, date, time, position_of, type_of_tree,extension))
         print(dest)
 
         # copying file to TARGET destination with new name
