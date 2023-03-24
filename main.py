@@ -17,6 +17,6 @@ if __name__ == "__main__":
     #rename_existing_files(SOURCE, "jpeg")
     #rename_existing_files2(SOURCE2, "jpeg")
     #r.rename_existing_files3(SOURCE3, "jpg")
-    r.copy_and_rename_files(SOURCE, "jpeg")
+    r.copy_and_rename_files2(SOURCE2, "jpeg")
 
 
